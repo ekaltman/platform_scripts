@@ -1,115 +1,86 @@
 
-class platform:
-    def __init__(self, platformName, alternateName, alternateVersion, mediaFormats, operatingSystem, peripherals, sources, exclusionRationale, problematic, notes):
-        self.__platformName = platformName
-        self.__alternateName = alternateName
-        self.__alternateVersion = alternateVersion
-        self.__mediaFormats = mediaFormats
-        self.__operatingSystem = operatingSystem
-        self.__peripherals = peripherals
-        self.__sources = sources
-        self.__exclusionRationale = exclusionRationale
-        self.__problematic = problematic
-        self.__notes = notes
+class Platform:
+    def __init__(self,platform_name, alternate_name, alternate_version, media_formats, operating_system, peripherals, sources, exclusion_rationale, problematic, notes):
+        self.platform_name       = platform_name
+        self.alternate_name      = alternate_name
+        self.alternate_version   = alternate_version
+        self.media_formats       = media_formats
+        self.operating_system    = operating_system
+        self.peripherals         = peripherals
+        self.sources             = sources
+        self.exclusion_rationale = exclusion_rationale
+        self.problematic         = problematic
+        self.notes               = notes
 
-    def getPlatformName(self):
-        return self.__platformName
-
-    def getAlternateName(self):
-        return self.__alternateName
-
-    def getAlternateVersion(self):
-        return self.__alternateVersion
-
-    def getMediaFormats(self):
-        return self.__mediaFormats
-
-    def getOperatingSystem(self):
-        return self.__operatingSystem
-
-    def getPeripherals(self):
-        return self.__peripherals
-
-    def getSources(self):
-        return self.__sources
-
-    def getExclusionRationale(self):
-        return self.__exclusionRationale
-
-    def getProblematic(self):
-        return self.__problematic
-
-    def getNotes(self):
-        return self.__notes
 
     def toString(self):
         
         file.write("PLATFORM NAME")
         file.write("\n")
-        data = platformList.index(platformindex).getPlatformName
+        data = platformList.index(platformindex).platform_name
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("ALTERNATE NAME")
         file.write("\n")
-        data = platformList.index(platformindex).getAlternateName
+        data = platformList.index(platformindex).alternate_name
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("ALTERNATE VERSION")
         file.write("\n")
-        data = platformList.index(platformindex).getAlternateVersion
+        data = platformList.index(platformindex).alternate_version
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("MEDIA FORMATS")
         file.write("\n")
-        data = platformList.index(platformindex).getMediaFormats
+        data = platformList.index(platformindex).media_formats
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("OPERATING SYSTEM")
         file.write("\n")
-        data = platformList.index(platformindex).getOperatingSystem
+        data = platformList.index(platformindex).operating_system
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("PERIPHERALS")
         file.write("\n")
-        data = platformList.index(platformindex).getPeripherals
+        data = platformList.index(platformindex).peripherals
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("SOURCES")
         file.write("\n")
-        data = platformList.index(platformindex).getSources
+        data = platformList.index(platformindex).sources
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("EXCLUSION RATIONALE")
         file.write("\n")
-        data = platformList.index(platformindex).getExclusionRationale
+        data = platformList.index(platformindex).exclusion_rationale
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("PROBLEMATIC")
         file.write("\n")
-        data = platformList.index(platformindex).getProblematic
+        data = platformList.index(platformindex).problematic
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")
 
         file.write("NOTES")
         file.write("\n")
-        data = platformList.index(platformindex).getNotes
+        data = platformList.index(platformindex).notes
         file.write(data.encode('utf-8'))
         file.write("\n______________________\n")
         file.write("\n")

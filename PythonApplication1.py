@@ -4,10 +4,11 @@ import gdata.docs.service
 import gspread
 import codecs
 import sys
-from platform import platform
+from getpass import getpass
+from platform import Platform
 
 username = raw_input('Enter Google User Name: ')
-passwd = raw_input('Enter password: ')
+passwd = getpass('Enter password: ')
 
 print 'authenticating with google...'
 # Authenticate using your Google Docs email address and password.
@@ -32,7 +33,7 @@ for x in worksheet.col_values(1):
     exclusion = worksheet.cell(countcategories, 8).value
     problem = worksheet.cell(countcategories, 9).value
     notes = worksheet.cell(countcategories, 10).value
-    platformObj = platform(name,altName,altVersion,mediaFormats,OS,periph,source,exclusion,problem,notes)
+    platformObj = Platform(name,altName,altVersion,mediaFormats,OS,periph,source,exclusion,problem,notes)
     platformList.append(platformObj)
     countcategories += 1
 
@@ -42,7 +43,7 @@ platformName = raw_input('Enter the name of a platform: ')
 # Put the information into a text file named the same as the platform
 platformindex = 0;
 for x in platformList:
-    if x.getPlatformName == platformName:
+    if x.platform_name == platformName:
         break
     platformindex += 1
 
