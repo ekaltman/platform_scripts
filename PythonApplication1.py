@@ -34,20 +34,27 @@ elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N
     print 'organizing worksheet...'
 
     # For the worksheet
-    countcategories = 1
-    platformList = []
-    platformList = worksheet.get_all_records();
+    platformList = worksheet.get_all_records()
+    platform_sheet_headers = ['Platform Name',
+                              'Alternate Name',
+                              'Alternate Version',
+                              'Media Formats',
+                              'Operating System (if applicable)',
+                              'Peripherals',
+                              'Sources',
+                              'Exclusion Rational',
+                              'Problematic',
+                              'Notes']
     
     for x in platformList:
         print x['Platform Name']
-        platformObj = Platform(x['Platform Name'],x['Alternate Name'],x['Alternate Version'],x['Media Formats'],x['Operating System (if applicable)'],x['Peripherals'],x['Sources'],x['Exclusion Rational'],x['Problematic'],x['Notes'])
+        platformObj = Platform(*[x[header] for header in platform_sheet_headers])
         allPlatforms.append(platformObj)
 
     # Print all info to csv file
-    categories = ['Platform Name','Alternate  Name','Alternate  Version','Media  Formats','Operating System (if applicable)','Peripherals','Sources','Exclusion Rational','Problematic','Notes']
     file = open("platformlist.csv", "wb")
     wri = csv.writer(file, quoting=csv.QUOTE_ALL)
-    wri.writerow(categories)
+    wri.writerow(platform_sheet_headers)
     for x in allPlatforms:
         wri.writerow(x.toStringCSV())
 
@@ -59,12 +66,13 @@ platformName = raw_input('Enter the name of a platform: ')
 
 
 # Put the information into a text file named the same as the platform
-platformindex = 0;
+platformindex = 0
 for x in allPlatforms:
     if x.platform_name == platformName:
         break
-    else: 
-        platformindex = platformindex+ 1
+    else:
+        platformindex += 1
 
-allPlatforms[platformindex].toString()
+
+allPlatforms[platformindex].toFile()
 print 'File created'
