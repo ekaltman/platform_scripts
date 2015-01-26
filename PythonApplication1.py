@@ -5,6 +5,7 @@ import codecs
 import sys
 from getpass import getpass
 from platform import Platform
+import rdflib
 import csv
 import os.path
 
@@ -57,7 +58,21 @@ elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N
     wri.writerow(platform_sheet_headers)
     for x in allPlatforms:
         wri.writerow(x.toStringCSV())
-
+        
+# Create RDF
+    for x in allPlatforms:
+        g.add((URIRef(x.platform_name), RDF['type'], skos['Concept']))
+        g.add((URIRef('URI'), skos['prefLabel'], Literal(x.platform_name, lang='en')))
+        lower = 0
+        morethanone = false
+        for y in x.alternate_name:
+            if x.alternate_name[y] == ';':
+                morethanone = true
+                lower = y+1
+                g.add((URIRef('URI'), skos['altLable'], URIRef(x.alternate_name[lower:y-1])))
+        if morethanone == false:
+            g.add((URIRef('URI'), skos['altLable'], URIRef(x.alternate_name)))
+    g.serialize('text.xml',format="pretty-xml")
     
 
 
