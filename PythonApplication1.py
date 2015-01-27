@@ -1,10 +1,7 @@
 # This program retrieves data from a specific spreadsheet, places it in a CSV file, and prints out information on a specific platform
-import gdata.docs.service
 import gspread
-import codecs
-import sys
 from getpass import getpass
-from platform import Platform
+from platform_classes import Platform
 import rdflib
 import csv
 import os.path
