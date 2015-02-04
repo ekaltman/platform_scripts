@@ -99,3 +99,4 @@ for x in allPlatforms:
         platformindex += 1
 allPlatforms[platformindex].toFile()
 print 'File created'
+#github test
