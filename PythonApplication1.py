@@ -58,35 +58,23 @@ elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N
     g = Graph()
     skos = Namespace('http://www.w3.org/2004/02/skos/core#')
     g.bind('skos', skos)
+    gamecip = 'http://example.org/'
     skip = 0
 
     for x in allPlatforms:
-        y = 0
-        morethanone = False
+        name = ''
+        for b in x.concept.split(' '):
+            name += b
         skip+=1
         if skip == 1:
             continue
-        g.add((URIRef(x.concept), RDF.type, skos['Concept']))
-        g.add((URIRef(x.concept), skos['prefLabel'], Literal(x.pref_label)))
+        g.add((URIRef(gamecip+name), RDF.type, skos['Concept']))
+        g.add((URIRef(gamecip+name), skos['prefLabel'], Literal(x.pref_label)))
+
         if x.alt_label == '':
             continue
-        if ';' in x.alt_label:
-            morethanone = True
-            count = 0
-            lower = 0
-            while y < len(x.alt_label):
-                if x.alt_label[y] == ';':
-                    count +=1
-                    if count == 1:
-                        g.add((URIRef(x.concept), skos['altLabel'], Literal(x.alt_label[0:y])))
-                
-                    if count > 1:
-                        g.add((URIRef(x.concept), skos['altLabel'], Literal(x.alt_label[lower:y])))
-                    lower = y+2
-                y +=1
-            g.add((URIRef(x.concept), skos['altLabel'], Literal(x.alt_label[lower:len(x.alt_label)])))
-        if morethanone == False:
-            g.add((URIRef(x.concept), skos['altLabel'], Literal(x.alt_label)))
+        for a in x.alt_label.split(";"):
+            g.add((URIRef(gamecip+name), skos['altLabel'], Literal(a)))
     g.serialize(destination = 'text.xml',format="pretty-xml")
 # Enter the name of the platform
 platformName = raw_input('Enter the name of a platform: ')
