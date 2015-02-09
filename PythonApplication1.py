@@ -70,11 +70,13 @@ elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N
             continue
         g.add((URIRef(gamecip+name), RDF.type, skos['Concept']))
         g.add((URIRef(gamecip+name), skos['prefLabel'], Literal(x.pref_label)))
-
+        if x.broader is not '':
+            g.add((URIRef(gamecip+name), skos['broader'], Literal(x.broader)))
         if x.alt_label == '':
             continue
         for a in x.alt_label.split(";"):
             g.add((URIRef(gamecip+name), skos['altLabel'], Literal(a)))
+        g.add((URIRef(gamecip+name), skos['definition'], Literal(x.definition)))
     g.serialize(destination = 'text.xml',format="pretty-xml")
 # Enter the name of the platform
 platformName = raw_input('Enter the name of a platform: ')
