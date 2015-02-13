@@ -24,7 +24,6 @@ if response == 'Y' or response == 'y':
             allPlatforms.append(Platformclass(x[0],x[1],x[2],x[3],x[4],x[5],x[6]))
         except IndexError:
             break
-
 elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N':
     username = raw_input('Enter Google User Name: ')
     passwd = getpass('Enter password: ')
@@ -72,7 +71,10 @@ elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N
         g.add((URIRef(gamecip+name), RDF.type, skos['Concept']))
         g.add((URIRef(gamecip+name), skos['prefLabel'], Literal(x.pref_label)))
         if x.broader is not '':
-            g.add((URIRef(gamecip+name), skos['broader'], Literal(x.broader)))
+            broad = ''
+            for v in x.broader.split(' '):
+                broad += v
+            g.add((URIRef(gamecip+name), skos['broader'], URIRef(gamecip+broad)))
         if x.alt_label == '':
             continue
         for a in x.alt_label.split(";"):
