@@ -24,6 +24,7 @@ if response == 'Y' or response == 'y':
             allPlatforms.append(Platformclass(x[0],x[1],x[2],x[3],x[4],x[5]))
         except IndexError:
             break
+
 elif not os.path.isfile('mediaplatformlist.csv') or response == 'n' or response == 'N':
     username = raw_input('Enter Google User Name: ')
     passwd = getpass('Enter password: ')
