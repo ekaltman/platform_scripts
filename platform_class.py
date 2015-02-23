@@ -25,6 +25,19 @@ class Platformclass:
         for key in Platformclass.ordered_headers:
             write_property(file, key)
         file.close()
+
+    def toHtml(self):
+        platformInfo = []
+        def write_property(property):
+            info = self.__dict__[property]
+            prop_name = " ".join(property.split('_')).upper()
+            platformInfo.append(prop_name + "\n")
+            platformInfo.append(info.encode('utf-8'))
+            platformInfo.append("\n_________________\n")
+        for key in Platformclass.ordered_headers:
+            write_property(key)
+        return platformInfo
+
     def toStringCSV(self):
         return [self.__dict__[header].encode('utf-8') for header in Platformclass.ordered_headers]
 

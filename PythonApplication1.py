@@ -9,7 +9,12 @@ from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
 import csv
 import os.path
 import logging
+import jinja2
 logging.basicConfig()
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)+"/Templates")
+)
+template = JINJA_ENVIRONMENT.get_template( "platform.jinja" )
 allPlatforms = []
 response = ''
 if os.path.isfile("platformlist.csv"):
@@ -25,10 +30,9 @@ if response == 'Y' or response == 'y':
         except IndexError:
             break
 elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N':
-    username = 'iceblade085'
-    passwd = 'kmcrkyyntfdgvvwg'
-#    username = raw_input('Enter Google User Name: ')
-#    passwd = getpass('Enter password: ')
+
+    username = raw_input('Enter Google User Name: ')
+    passwd = getpass('Enter password: ')
     print 'authenticating with google...'
 # Authenticate using your Google Docs email address and password.
     client = gspread.login(username + '@gmail.com', passwd)
@@ -92,6 +96,14 @@ for x in allPlatforms:
         break
     else:
         platformindex += 1
+platformInfo = allPlatforms[platformindex].toHtml()
+templateVars = { "title" : platformName,
+                 "description" : "test",
+                 "platformInfo" : platformInfo
+               }
+outputText = template.render( templateVars )
+file = open(platformName+".html", "w")
+file.write(outputText.encode('utf-8'))
 allPlatforms[platformindex].toFile()
 print 'File created'
 #github test
