@@ -30,10 +30,8 @@ if response == 'Y' or response == 'y':
         except IndexError:
             break
 elif not os.path.isfile('platformlist.csv') or response == 'n' or response == 'N':
-    username = 'iceblade085'
-    passwd = 'kmcrkyyntfdgvvwg'
-#    username = raw_input('Enter Google User Name: ')
-#    passwd = getpass('Enter password: ')
+    username = raw_input('Enter Google User Name: ')
+    passwd = getpass('Enter password: ')
     print 'authenticating with google...'
 # Authenticate using your Google Docs email address and password.
     client = gspread.login(username + '@gmail.com', passwd)
