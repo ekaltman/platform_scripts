@@ -193,3 +193,4 @@ elif which == 1:
 path_to_file = pjoin("D:\\", "Python Projects", "github", "platform_scripts", folder, "main.html")
 mainfile = open(path_to_file, "w")
 mainfile.write(outputText.encode('utf-8'))
+#Something for the commit

@@ -70,3 +70,5 @@ if __name__ == "__main__":
     p = Platformclass(*['test'+str(x) for x in range(8)])
     p.toFile()
     print p.toStringCSV()
+
+    #Something to commit
