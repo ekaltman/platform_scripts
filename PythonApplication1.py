@@ -4,7 +4,7 @@ import gspread
 import codecs
 import sys
 from getpass import getpass
-from platform_class import Platformclass
+from platform_class import Platformclass, MediaFormat
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
 import csv
 import os.path
@@ -35,9 +35,9 @@ if response == 'Y' or response == 'y':
         try:
             print x[0]
             if which == 0:
-                allPlatforms.append(Platformclass(which,x[0],x[1],x[2],x[3],x[4],x[5],x[6]))
+                allPlatforms.append(Platformclass(x[0],x[1],x[2],x[3],x[4],x[5],x[6]))
             elif which == 1:
-                allPlatforms.append(Platformclass(which,x[0],x[1],x[2],x[3],x[4],x[5],''))
+                allPlatforms.append(MediaFormat(x[0],x[1],x[2],x[3],x[4],x[5]))
         except IndexError:
             break
 elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and not os.path.isfile('mediaplatformlist.csv')) or response == 'n' or response == 'N':
@@ -74,9 +74,9 @@ elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and 
     for x in platformList:
         print x['skos:Concept']
         if which == 0:
-            platformObj = Platformclass(which,*[x[header] for header in platform_sheet_headers])
+            platformObj = Platformclass(*[x[header] for header in platform_sheet_headers])
         if which == 1:
-            platformObj = Platformclass(which,*[x[header] for header in mediaplatform_sheet_headers])
+            platformObj = MediaFormat(*[x[header] for header in mediaplatform_sheet_headers])
         allPlatforms.append(platformObj)
 # Print all info to csv file
     if which == 0:
