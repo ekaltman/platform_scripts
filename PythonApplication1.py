@@ -42,10 +42,9 @@ if response == 'Y' or response == 'y':
             break
 elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and not os.path.isfile('mediaplatformlist.csv')) or response == 'n' or response == 'N':
 
-    #username = raw_input('Enter Google User Name: ')
-    username = 'iceblade085'
-    passwd = 'kmcrkyyntfdgvvwg'
-    #passwd = getpass('Enter password: ')
+    username = raw_input('Enter Google User Name: ')
+
+    passwd = getpass('Enter password: ')
     print 'authenticating with google...'
 # Authenticate using your Google Docs email address and password.
     client = gspread.login(username + '@gmail.com', passwd)
