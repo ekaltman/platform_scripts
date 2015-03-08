@@ -74,9 +74,9 @@ elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and 
     for x in platformList:
         print x['skos:Concept']
         if which == 0:
-            platformObj = Platformclass(which,*[x[header] for header in platform_sheet_headers])
+            platformObj = Platformclass(*[x[header] for header in platform_sheet_headers])
         if which == 1:
-            platformObj = Platformclass(which,*[x[header] for header in mediaplatform_sheet_headers])
+            platformObj = MediaFormat(*[x[header] for header in mediaplatform_sheet_headers])
         allPlatforms.append(platformObj)
 # Print all info to csv file
     if which == 0:
