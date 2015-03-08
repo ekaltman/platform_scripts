@@ -4,7 +4,7 @@ import gspread
 import codecs
 import sys
 from getpass import getpass
-from platform_class import Platformclass, MediaFormat
+from platform_class import Platformclass,MediaFormat
 from rdflib import Graph, Literal, BNode, Namespace, RDF, URIRef
 import csv
 import os.path
@@ -42,8 +42,10 @@ if response == 'Y' or response == 'y':
             break
 elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and not os.path.isfile('mediaplatformlist.csv')) or response == 'n' or response == 'N':
 
-    username = raw_input('Enter Google User Name: ')
-    passwd = getpass('Enter password: ')
+    #username = raw_input('Enter Google User Name: ')
+    username = 'iceblade085'
+    passwd = 'kmcrkyyntfdgvvwg'
+    #passwd = getpass('Enter password: ')
     print 'authenticating with google...'
 # Authenticate using your Google Docs email address and password.
     client = gspread.login(username + '@gmail.com', passwd)
@@ -69,14 +71,13 @@ elif (which == 0 and not os.path.isfile('platformlist.csv')) or (which == 1 and 
                               'skos:altLabel',
                               'skos:definition',
                               'skos:related',
-                              'skos:broader',
                               'skos:broader']
     for x in platformList:
         print x['skos:Concept']
         if which == 0:
-            platformObj = Platformclass(*[x[header] for header in platform_sheet_headers])
+            platformObj = Platformclass(which,*[x[header] for header in platform_sheet_headers])
         if which == 1:
-            platformObj = MediaFormat(*[x[header] for header in mediaplatform_sheet_headers])
+            platformObj = Platformclass(which,*[x[header] for header in mediaplatform_sheet_headers])
         allPlatforms.append(platformObj)
 # Print all info to csv file
     if which == 0:
@@ -129,18 +130,29 @@ if allToHTML == 'y' or allToHTML == 'Y':
         outputText = template.render( templateVars )
 
         filenamesl = ''
+        filenamecol = ''
         filename = ''
         for slash in x.concept.split("/"):
             filenamesl += slash
-        platform_names.append(filenamesl)
-        for space in filenamesl.split(' '):
+
+        for colon in filenamesl.split(":"):
+            filenamecol += colon
+        for space in filenamecol.split(' '):
             filename += space
+        platform_names.append(filename)
         filename += '.html'
         if which == 0:
-            folder = "platform html"
+            folder = "platform_html"
         elif which == 1:
-            folder = "media platform html"
+            folder = "media_format_html"
         file_names.append(filename)
+        path_to_folder = pjoin("D:\\", "Python Projects", "github", "platform_scripts", folder)
+        #make folder if it doesn't exist
+        try:
+            os.makedirs(path_to_folder)
+        except OSError:
+            if not os.path.isdir(path_to_folder):
+                raise
         path_to_file = pjoin("D:\\", "Python Projects", "github", "platform_scripts", folder, filename)
         file = open(path_to_file, "w")
         file.write(outputText.encode('utf-8'))
@@ -169,9 +181,9 @@ elif allToHTML == 'n' or allToHTML == 'N':
         filename += space
     filename += '.html'
     if which == 0:
-        folder = "platform html"
+        folder = "platform_html"
     elif which == 1:
-        folder = "media platform html"
+        folder = "media_format_html"
     file_names.append(filename)
     path_to_file = pjoin("D:\\", "Python Projects", "github", "platform_scripts", folder, filename)
     file = open(path_to_file, "w")
@@ -187,10 +199,9 @@ templateVars = { "title" : "Main menu",
                }
 outputText = maintemplate.render( templateVars )
 if which == 0:
-    folder = "platform html"
+    folder = "platform_html"
 elif which == 1:
-    folder = "media platform html"
+    folder = "media_format_html"
 path_to_file = pjoin("D:\\", "Python Projects", "github", "platform_scripts", folder, "main.html")
 mainfile = open(path_to_file, "w")
 mainfile.write(outputText.encode('utf-8'))
-#Something for the commit again
